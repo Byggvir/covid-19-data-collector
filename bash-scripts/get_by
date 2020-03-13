@@ -1,17 +1,17 @@
 #/bin/bash
 
-# This bash script collects the data from Byern (BY), DEU
+# This bash script collects the data from Bayern (BY), DEU
 
 DATUM=$( date +%Y%m%d%H%M)
 
 ( echo "Kreis,Fälle" ; \
 wget -O - https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm \
 | sed '1,/<!-- Beginn Schleife Datensätze auslesen\/ausgeben -->/d;/<!-- Ende Schleife Datensätze auslesen\/ausgeben -->/,$d; s#<[^>]*>##g; /^[[:space:]]*$/d; s#^ *##; s#\r##g;' \
-| sed 'N;s#\n#,#g' ) \
+| sed 'N;s#\n#;#g' ) \
 > ../data/byk-$DATUM.csv
 
 ( echo "Regierungsbezirk,Fälle" ; \
 wget -O - https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm \
 | sed '1,/<th>Regierungsbezirk<\/th>/d;/<!-- Ende Schleife Datensätze auslesen\/ausgeben -->/,$d; s#<[^>]*>##g; /^[[:space:]]*$/d; s#^ *##; s#\r##g;' \
-| sed '1d;N;s#\n#,#g' ) \
+| sed '1d;N;s#\n#;#g' ) \
 > ../data/byr-$DATUM.csv
