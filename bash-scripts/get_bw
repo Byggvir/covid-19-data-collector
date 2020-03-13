@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 # This bash script collects the data from Baden-Württemberg (BW) und Rheinland-Pfalz (RP), DEU
 
@@ -8,6 +8,7 @@ echo -e "$( \
 wget -O - https://datawrapper.dwcdn.net/YU9ZN/26/ \
 | grep 'chartData: ' \
 | sed 's#\\n#\n#g; s#\\"##g; 1 s#.*chartData: "#N#; ' \
-| sed '$d' \
+| sed '$d' 
+| sed 's#;#,#g' \
  )" \
 > ../data/sw-$DATUM.csv

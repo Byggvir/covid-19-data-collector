@@ -8,8 +8,10 @@ DATUM=$( date +%Y%m%d%H%M)
 wget -O - https://www.niedersachsen.de/Coronavirus \
 | sed '1,/<!-- Liste Infospalte -->/d; /<!-- Liste Infospalte -->/,$d' \
 | sed '1,/Landkreisen/d;/Hinweis/,$d' \
+| tr -d '\r' \
 | sed 's#<br>#\n#g; s#<[^>]*>##g;' \
 | sed 's#^[^0-9]## ;s# F.*ll.* i[nm] \(der \)*#,#; ' \
 | sed 's#(+[0-9]*)##; s# *$##; $d' \
-| awk -F ',' '{print ($2 "," $1)}' \
-> ../data/nrw-$DATUM.csv
+| sed '/^$/d; $d' \
+| awk -F ',' '{print ($2 "," $1)}' ) \
+> ../data/nie-$DATUM.csv
