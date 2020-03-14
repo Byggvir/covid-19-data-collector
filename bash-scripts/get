@@ -1,8 +1,13 @@
 #!/bin/bash
 
 # Execute all scripts
+SPATH=$(dirname $0)
+
+pushd $SPATH
 
 for SCRIPT in get_*
 do
     . $SCRIPT
 done
+
+popd
