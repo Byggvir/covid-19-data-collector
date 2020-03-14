@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This bash script collects the data from Niedersachsen (NRW), DEU
+# This bash script collects the data from Niedersachsen (NIE), DEU
 
 DATUM=$( date +%Y%m%d%H%M)
 

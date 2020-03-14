@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This bash script collects the data from Hessen (HES), DEU
+
+DATUM=$( date +%Y%m%d%H%M)
+
+wget -O - https://soziales.hessen.de/gesundheit/infektionsschutz/coronavirus-sars-cov-2/taegliche-uebersicht-der-bestaetigten-sars-cov-2-faelle-hessen \
+| grep 'field-item ueberschrift">Tägliche Übersicht der bestätigten SARS-CoV-2-Fälle in Hessen' \
+| sed 's#</\{0,1\}p[^>]*>##g;s#</tbody>.*</table>.*Neue hessische Fälle.*##;' \
+| sed 's#.*<table [^>]*><tbody>##; s#</tr>#\n#g' \
+| sed 's#</td>#,#g;s#<[^>]*>##g; s#^ ##; ' \
+| sed 's#\xc2\xa0##g; s# *, *#,#g; s#,$##;' \
+| sed '/Gesamtzahl/d;$d' \
+> ../data/hes-$DATUM.csv
