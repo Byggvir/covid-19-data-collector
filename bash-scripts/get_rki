@@ -7,6 +7,6 @@ DATUM=$( date +%Y%m%d%H%M)
 ( echo "Bundesland,Bestätigt,Gemeldet,Schwerpunkt" ; wget -O - https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.html \
 | grep -A 2 '<table><colgroup>' \
 | sed '1,2d;s#^.*<tbody>##;s#<\/tr>#\n#g' \
-| sed 's#\(<[^>]*>\)\{1,\}#,#g; s#^,-##; s#\.##g; s# ([0-9]*)##g' 
-| sed '/\(.*,\)\{4\}/ s#,-$##' \
+| sed 's#\(<[^>]*>\)\{1,\}#,#g; s#^,-##; s#\.##g; s# ([0-9]*)##g' \
+| sed '/\(.*,\)\{4\}/ s#,-$##' ) \
 > ../data/rki-$DATUM.csv
