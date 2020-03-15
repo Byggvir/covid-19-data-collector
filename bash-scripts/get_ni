@@ -14,4 +14,4 @@ wget -O - https://www.niedersachsen.de/Coronavirus \
 | sed 's#(+[0-9]*)##; s# *$##; $d' \
 | sed '/^$/d; $d' \
 | awk -F ',' '{print ($2 "," $1)}' ) \
-> ../data/nie-$DATUM.csv
+> $DATADIR/nie-$DATUM.csv

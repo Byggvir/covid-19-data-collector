@@ -11,4 +11,4 @@ wget -O - https://datawrapper.dwcdn.net/YU9ZN/26/ \
 | sed '$d' \
 | sed 's#;#,#g' \
  )" \
-> ../data/sw-$DATUM.csv
+> $DATADIR/sw-$DATUM.csv

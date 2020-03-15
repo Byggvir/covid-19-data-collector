@@ -11,4 +11,4 @@ wget -O - https://soziales.hessen.de/gesundheit/infektionsschutz/coronavirus-sar
 | sed 's#</td>#,#g;s#<[^>]*>##g; s#^ ##; ' \
 | sed 's#\xc2\xa0##g; s# *, *#,#g; s#,$##;' \
 | sed '/Gesamtzahl/d;$d' \
-> ../data/hes-$DATUM.csv
+> $DATADIR/hes-$DATUM.csv

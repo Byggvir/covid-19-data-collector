@@ -9,4 +9,4 @@ wget -O - https://www.mags.nrw/coronavirus-fallzahlen-nrw \
 | sed '1,/<th scope="col">Bestätigte Fälle<\/th>/d; /<\/tr><\/tbody><\/table>/,$d' \
 | sed 'N;s/\n/,/;s#<[^>]*>##g;' \
 | sed 's#,-#,0#; s#\&amp;#\&#g' ) \
-> ../data/nrw-$DATUM.csv
+> $DATADIR/nrw-$DATUM.csv

@@ -1,13 +1,28 @@
 #!/bin/bash
 
 # Execute all scripts
+
 SPATH=$(dirname $0)
+DATADIR=../data
 
 pushd $SPATH
 
+# Get information from various sources
+
 for SCRIPT in get_*
 do
-    . $SCRIPT
+    . $SCRIPT $DATADIR
 done
+
+popd
+
+# Keep only on copy of identical files
+
+pushd $SPATH/$DATADIR
+
+md5sum *.csv \
+| sort \
+| awk -F ' ' 'BEGIN { F="" } { if (F==$1) { print ("rm", $2 ) ;}  else { print ( "#Keep ", $2 ) ; F=$1; }}' \
+| sh
 
 popd

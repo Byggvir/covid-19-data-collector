@@ -8,10 +8,10 @@ DATUM=$( date +%Y%m%d%H%M)
 wget -O - https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm \
 | sed '1,/<!-- Beginn Schleife Datensätze auslesen\/ausgeben -->/d;/<!-- Ende Schleife Datensätze auslesen\/ausgeben -->/,$d; s#<[^>]*>##g; /^[[:space:]]*$/d; s#^ *##; s#\r##g;' \
 | sed 'N;s#\n#,#g' ) \
-> ../data/byk-$DATUM.csv
+> $DATADIR/byk-$DATUM.csv
 
 ( echo "Regierungsbezirk,Fälle" ; \
 wget -O - https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm \
 | sed '1,/<th>Regierungsbezirk<\/th>/d;/<!-- Ende Schleife Datensätze auslesen\/ausgeben -->/,$d; s#<[^>]*>##g; /^[[:space:]]*$/d; s#^ *##; s#\r##g;' \
 | sed '1d;N;s#\n#,#g' ) \
-> ../data/byr-$DATUM.csv
+> $DATADIR/byr-$DATUM.csv

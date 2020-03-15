@@ -12,4 +12,4 @@ wget -O - https://www.sms.sachsen.de/coronavirus.html \
 | tr -d '\n' \
 | sed 's#</tr>#\n#g; s#</t[dh]>[[:space:]]*<t[dh][^>]*>#,#g;' \
 | sed '1d; s#<[^>]*>##g; s#^[[:space:]]*##; s#&nbsp;#0#g' \
-) > ../data/sn-$DATUM.csv
+) > $DATADIR/sn-$DATUM.csv

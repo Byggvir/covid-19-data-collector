@@ -9,4 +9,4 @@ DATUM=$( date +%Y%m%d%H%M)
 | sed '1,2d;s#^.*<tbody>##;s#<\/tr>#\n#g' \
 | sed 's#\(<[^>]*>\)\{1,\}#,#g; s#^,##; s#\.##g; s# ([0-9]*)##g' \
 | sed '/\(.*,\)\{4\}/ s#,$##' ) \
-> ../data/rki-$DATUM.csv
+> $DATADIR/rki-$DATUM.csv
