@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# This bash script collects the data from Sachsen (SN), DEU
+
+DATUM=$( date +%Y%m%d%H%M)
+
+( echo 'Kreis,Fälle,Übermittelt' ; \
+wget -O - https://www.sms.sachsen.de/coronavirus.html \
+| tr -d '\r' \
+| sed '1,/Laborbestätigte Fälle in den Kreisfreien Städten und in den Landkreisen des Freistaates/d; /<p>Todesfälle: 0<br>/,$d' \
+| sed '1,/<thead>/ d;/thead/d;/tbody/d;/table/d' \
+| tr -d '\n' \
+| sed 's#</tr>#\n#g; s#</t[dh]>[[:space:]]*<t[dh][^>]*>#,#g;' \
+| sed '1d; s#<[^>]*>##g; s#^[[:space:]]*##; s#&nbsp;#0#g' \
+) > ../data/sn-$DATUM.csv

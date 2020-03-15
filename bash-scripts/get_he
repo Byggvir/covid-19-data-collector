@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# This bash script collects the data from Hessen (HES), DEU
+# This bash script collects the data from Hessen (HE), DEU
 
-DATUM=$( date +%Y%m%d%H%M)
+DATUM=$(date +%Y%m%d%H%M)
 
 wget -O - https://soziales.hessen.de/gesundheit/infektionsschutz/coronavirus-sars-cov-2/taegliche-uebersicht-der-bestaetigten-sars-cov-2-faelle-hessen \
 | grep 'field-item ueberschrift">Tägliche Übersicht der bestätigten SARS-CoV-2-Fälle in Hessen' \
