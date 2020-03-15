@@ -2,7 +2,7 @@
 
 # This bash script collects the data from Niedersachsen (NIE), DEU
 
-DATUM=$( date +%Y%m%d%H%M)
+DATUM=$(date +%Y%m%d%H%M)
 
 ( echo "Kreis,Fälle" ;
 wget -O - https://www.niedersachsen.de/Coronavirus \

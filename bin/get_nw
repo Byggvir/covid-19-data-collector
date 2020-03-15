@@ -2,7 +2,7 @@
 
 # This bash script collects the data from Nordrhein-Westfalen (NRW), DEU
 
-DATUM=$( date +%Y%m%d%H%M)
+DATUM=$(date +%Y%m%d%H%M)
 
 ( echo "Kreis,Fälle" ;
 wget -O - https://www.mags.nrw/coronavirus-fallzahlen-nrw \

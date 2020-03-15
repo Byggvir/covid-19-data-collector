@@ -2,7 +2,8 @@
 
 # This bash script collects the data from Baden-Württemberg (BW) und Rheinland-Pfalz (RP), DEU
 
-DATUM=$( date +%Y%m%d%H%M)
+DATUM=$(date +%Y%m%d%H%M)
+DATADIR=$1
 
 echo -e "$( \
 wget -O - https://datawrapper.dwcdn.net/YU9ZN/26/ \

@@ -2,7 +2,7 @@
 
 # This bash script collects the data from Robert-Koch Institut (RKI), DEU
 
-DATUM=$( date +%Y%m%d%H%M)
+DATUM=$(date +%Y%m%d%H%M)
 
 ( echo "Bundesland,Bestätigt,Gemeldet,Schwerpunkt" ; wget -O - https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.html \
 | grep -A 2 '<table><colgroup>' \

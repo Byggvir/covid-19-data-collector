@@ -2,7 +2,7 @@
 
 # This bash script collects the data from Sachsen (SN), DEU
 
-DATUM=$( date +%Y%m%d%H%M)
+DATUM=$(date +%Y%m%d%H%M)
 
 ( echo 'Kreis,Fälle,Übermittelt' ; \
 wget -O - https://www.sms.sachsen.de/coronavirus.html \

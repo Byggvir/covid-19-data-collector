@@ -2,7 +2,8 @@
 
 # This bash script collects the data from Bayern (BY), DEU
 
-DATUM=$( date +%Y%m%d%H%M)
+DATUM=$(date +%Y%m%d%H%M)
+DATADIR=$1
 
 ( echo "Kreis,Fälle" ; \
 wget -O - https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm \
