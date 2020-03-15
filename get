@@ -3,19 +3,15 @@
 # Execute all scripts to collect statistics about COVID-19 cases
 
 SPATH=$(dirname $0)
-
-DATADIR=$(dirname $SPATH)/../data
+DATADIR=$(dirname $SPATH)/data
  
-echo $SPATH
-echo $DATADIR
-exit
 export DATADIR
 
 pushd $SPATH
 
 # Get information from various sources
 
-for SCRIPT in get_*
+for SCRIPT in bin/get_*
 do
     . $SCRIPT $DATADIR
 done
