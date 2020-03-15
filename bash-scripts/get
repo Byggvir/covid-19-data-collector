@@ -20,9 +20,14 @@ popd
 
 pushd $DATADIR
 
+git pull
+
 md5sum *.csv \
 | sort \
 | awk -F ' ' 'BEGIN { F="" } { if (F==$1) { print ("rm", $2 ) ;}  else { print ( "#Keep ", $2 ) ; F=$1; }}' \
 | sh
 
+git add *
+git commit -m "New data"
+git push
 popd
