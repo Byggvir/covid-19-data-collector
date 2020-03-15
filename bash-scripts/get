@@ -4,7 +4,7 @@
 
 SPATH=$(dirname $0)
 DATADIR=$(dirname $SPATH)/data
-echo $DATADIR
+
 pushd $SPATH
 
 # Get information from various sources
