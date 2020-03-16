@@ -7,7 +7,7 @@ DATADIR=$1
 TMPSOURCE=$(mktemp)
 SOURCE=https://www.sms.sachsen.de/coronavirus.html
 
-wget -O "\${TMPSOURCE}" "${SOURCE}"
+wget --tries=2 -O "\${TMPSOURCE}" "${SOURCE}"
 
 ( echo 'Kreis,Fälle,Übermittelt' ; \
 cat \${TMPSOURCE} \

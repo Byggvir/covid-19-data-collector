@@ -7,7 +7,7 @@ DATADIR=$1
 TMPSOURCE=$(mktemp)
 SOURCE=https://soziales.hessen.de/gesundheit/infektionsschutz/coronavirus-sars-cov-2/taegliche-uebersicht-der-bestaetigten-sars-cov-2-faelle-hessen
 
-wget -O "${TMPSOURCE}" "${SOURCE}"
+wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}"
 
 cat  "${TMPSOURCE}" \
 | grep 'field-item ueberschrift">Tägliche Übersicht der bestätigten SARS-CoV-2-Fälle in Hessen' \

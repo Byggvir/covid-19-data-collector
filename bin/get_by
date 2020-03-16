@@ -7,7 +7,7 @@ DATADIR=$1
 TMPSOURCE=$(mktemp)
 SOURCE=https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm
 
-wget -O "${TMPSOURCE}" "${SOURCE}"
+wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
 
 ( echo "Kreis,Fälle" ; \
 cat ${TMPSOURCE} \
