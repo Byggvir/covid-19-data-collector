@@ -36,3 +36,4 @@ then
     > ${DATADIR}/sw-${DATUM}.csv
 fi
 
+awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$5} END {print ("81,Summe,,," sum ",,") ;}' < ${DATADIR}/sw-${DATUM}.csv >>${DATADIR}/se-${DATUM}.csv
