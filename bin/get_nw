@@ -3,10 +3,15 @@
 # This bash script collects the data from Nordrhein-Westfalen (NRW), DEU
 
 DATUM=$(date +%Y%m%d%H%M)
+DATADIR=$1
+TMPSOURCE=$(mktemp)
+SOURCE=https://www.mags.nrw/coronavirus-fallzahlen-nrw
 
-( echo "Kreis,Fälle" ;
-wget -O - https://www.mags.nrw/coronavirus-fallzahlen-nrw \
+wget -O "$TMPSOURCE" "$SOURCE"
+
+( echo "Kreis,Fälle" ; \
+cat "$TMPSOURCE"  \
 | sed '1,/<th scope="col">Bestätigte Fälle<\/th>/d; /<\/tr><\/tbody><\/table>/,$d' \
 | sed 'N;s/\n/,/;s#<[^>]*>##g;' \
-| sed 's#,-#,0#; s#\&amp;#\&#g' ) \
-> $DATADIR/nrw-$DATUM.csv
+| sed 's#,-#,0#; s#\&amp;#\&#g' \
+) > $DATADIR/nrw-$DATUM.csv

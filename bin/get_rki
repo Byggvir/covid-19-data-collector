@@ -3,8 +3,14 @@
 # This bash script collects the data from Robert-Koch Institut (RKI), DEU
 
 DATUM=$(date +%Y%m%d%H%M)
+DATADIR=$1
+TMPSOURCE=$(mktemp)
+SOURCE=https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.html
 
-( echo "Bundesland,Bestätigt,Gemeldet,Schwerpunkt" ; wget -O - https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.html \
+wget -O "$TMPSOURCE" "$SOURCE"
+
+( echo "Bundesland,Bestätigt,Gemeldet,Schwerpunkt" ;  \
+cat "$TMPSOURCE" \
 | grep -A 2 '<table><colgroup>' \
 | sed '1,2d;s#^.*<tbody>##;s#<\/tr>#\n#g' \
 | sed 's#\(<[^>]*>\)\{1,\}#,#g; s#^,##; s#\.##g; s# ([0-9]*)##g' \

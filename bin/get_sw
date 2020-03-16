@@ -4,12 +4,20 @@
 
 DATUM=$(date +%Y%m%d%H%M)
 DATADIR=$1
+TMPSOURCE=$(mktemp)
+T=$(echo `date +%j` | sed 's#^0*##')
+D=$(($T-48))
+SOURCE=https://datawrapper.dwcdn.net/YU9ZN/$D/
 
-echo -e "$( \
-wget -O - https://datawrapper.dwcdn.net/YU9ZN/26/ \
-| grep 'chartData: ' \
-| sed 's#\\n#\n#g; s#\\"##g; 1 s#.*chartData: "#N#; ' \
-| sed '$d' \
-| sed 's#;#,#g' \
- )" \
-> $DATADIR/sw-$DATUM.csv
+wget -O "$TMPSOURCE" "$SOURCE" \
+if [ $? -eq 0 ] then
+    echo -e "$( \
+    cat "$TMPSOURCE" \
+    | grep 'chartData: ' \
+    | sed 's#\\n#\n#g; s#\\"##g; 1 s#.*chartData: "#N#; ' \
+    | sed '$d' \
+    | sed 's#;#,#g' \
+    )" \
+    > $DATADIR/sw-$DATUM.csv
+fi
+

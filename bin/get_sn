@@ -3,9 +3,14 @@
 # This bash script collects the data from Sachsen (SN), DEU
 
 DATUM=$(date +%Y%m%d%H%M)
+DATADIR=$1
+TMPSOURCE=$(mktemp)
+SOURCE=https://www.sms.sachsen.de/coronavirus.html
+
+wget -O "$TMPSOURCE" "$SOURCE"
 
 ( echo 'Kreis,Fälle,Übermittelt' ; \
-wget -O - https://www.sms.sachsen.de/coronavirus.html \
+cat $TMPSOURCE \
 | tr -d '\r' \
 | sed '1,/Laborbestätigte Fälle in den Kreisfreien Städten und in den Landkreisen des Freistaates/d; /<p>Todesfälle: 0<br>/,$d' \
 | sed '1,/<thead>/ d;/thead/d;/tbody/d;/table/d' \

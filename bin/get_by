@@ -4,15 +4,19 @@
 
 DATUM=$(date +%Y%m%d%H%M)
 DATADIR=$1
+TMPSOURCE=$(mktemp)
+SOURCE=https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm
+
+wget -O "$TMPSOURCE" "$SOURCE"
 
 ( echo "Kreis,Fälle" ; \
-wget -O - https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm \
+cat $TMPSOURCE \
 | sed '1,/<!-- Beginn Schleife Datensätze auslesen\/ausgeben -->/d;/<!-- Ende Schleife Datensätze auslesen\/ausgeben -->/,$d; s#<[^>]*>##g; /^[[:space:]]*$/d; s#^ *##; s#\r##g;' \
 | sed 'N;s#\n#,#g' ) \
 > $DATADIR/byk-$DATUM.csv
 
 ( echo "Regierungsbezirk,Fälle" ; \
-wget -O - https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm \
+cat $TMPSOURCE \
 | sed '1,/<th>Regierungsbezirk<\/th>/d;/<!-- Ende Schleife Datensätze auslesen\/ausgeben -->/,$d; s#<[^>]*>##g; /^[[:space:]]*$/d; s#^ *##; s#\r##g;' \
 | sed '1d;N;s#\n#,#g' ) \
 > $DATADIR/byr-$DATUM.csv
