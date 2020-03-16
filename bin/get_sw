@@ -14,11 +14,11 @@ D=""
 FOUND=1
 while [ $FOUND -eq 1 ]
 do 
-    wget -O "${TMPSOURCE}"  "${SOURCE}$D"
+    wget -O "${TMPSOURCE}" "${SOURCE}$D"
     grep 'url=../../YU9ZN/[0-9]*/' "${TMPSOURCE}"
     if [ $? -eq 0 ]
     then 
-      D=$(sed 's#.*/YU9ZN/##; s#/.*#/#' "${TMPSOURCE}" )
+      D=$(sed 's#.*/YU9ZN/##; s#/.*#/#' < "${TMPSOURCE}" )
     else
       FOUND=0
     fi
