@@ -15,7 +15,7 @@ FOUND=1
 while [ $FOUND -eq 1 ]
 do 
     wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}$D"  || exit
-    grep 'url=../../YU9ZN/[0-9]*/' "${TMPSOURCE}"
+    grep 'url=../../YU9ZN/[0-9]*/' "${TMPSOURCE}" > /dev/null
     if [ $? -eq 0 ]
     then 
       D=$(sed 's#.*/YU9ZN/##; s#/.*#/#' < "${TMPSOURCE}" )
