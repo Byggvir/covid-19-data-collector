@@ -9,7 +9,7 @@ DATUM=$(date +%Y%m%d%H%M)
 DATADIR=$1
 TMPSOURCE=$(mktemp)
 T=$(echo `date +%j` | sed 's#^0*##')        # Day in year
-D=$(($T-48))                                # Reduce by offset 48
+D=$(($T-47))                                # Reduce by offset 48
 SOURCE=https://datawrapper.dwcdn.net/YU9ZN/$D/
 
 wget -O "$TMPSOURCE" "$SOURCE"

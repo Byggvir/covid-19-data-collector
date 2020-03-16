@@ -20,3 +20,5 @@ cat "$TMPSOURCE" \
 | sed '/^$/d; $d' \
 | awk -F ',' '{print ($2 "," $1)}' ) \
 > $DATADIR/nie-$DATUM.csv
+
+awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < $DATADIR/nie-$DATUM.csv >>$DATADIR/nie-$DATUM.csv
