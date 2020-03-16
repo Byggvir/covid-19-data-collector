@@ -8,6 +8,7 @@ DATADIR=$(dirname $SPATH)/data
 export DATADIR
 
 pushd $SPATH
+git pull
 
 # Get information from various sources
 
