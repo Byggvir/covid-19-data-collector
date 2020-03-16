@@ -8,13 +8,13 @@
 DATUM=$(date +%Y%m%d%H%M)
 DATADIR=$1
 TMPSOURCE=$(mktemp)
-
 SOURCE=https://datawrapper.dwcdn.net/YU9ZN/
 D=""
+
 FOUND=1
 while [ $FOUND -eq 1 ]
 do 
-    wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}$D"
+    wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}$D"  || exit
     grep 'url=../../YU9ZN/[0-9]*/' "${TMPSOURCE}"
     if [ $? -eq 0 ]
     then 

@@ -7,7 +7,7 @@ DATADIR=$1
 TMPSOURCE=$(mktemp)
 SOURCE=https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.html
 
-wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}"
+wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
 
 ( echo "Bundesland,Bestätigt,Gemeldet,Schwerpunkt" ;  \
 cat "${TMPSOURCE}" \
