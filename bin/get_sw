@@ -29,11 +29,11 @@ then
     echo -e "$( \
     cat "${TMPSOURCE}" \
     | grep 'chartData: ' \
-    | sed 's#\\n#\n#g; s#\\"##g; 1 s#.*chartData: "#N#; ' \
+    | sed 's#,#\.#g;s#\\n#\n#g; s#\\"##g; 1 s#.*chartData: "#N#; ' \
     | sed '$d' \
     | sed 's#;#,#g' \
     )" \
     > ${DATADIR}/sw-${DATUM}.csv
 fi
 
-awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$5} END {print ("81,Summe,,," sum ",,") ;}' < ${DATADIR}/sw-${DATUM}.csv >>${DATADIR}/sw-${DATUM}.csv
+awk -F ',' 'BEGIN {sum=0;bev=0;} NR>1 {sum+=$5;bev+=$7} END {print ("81,-,Summe,-," sum ",-," bev ",-,-,-,-,-") ;}' < ${DATADIR}/sw-${DATUM}.csv >>${DATADIR}/sw-${DATUM}.csv
