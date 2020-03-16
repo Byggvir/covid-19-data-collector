@@ -1,16 +1,23 @@
 #!/bin/bash
 
 # This bash script collects the data from Baden-Württemberg (BW) und Rheinland-Pfalz (RP), DEU
+#
+# The trailing number /NN/ changes daily (?).
+# If the number is wrong, we get an redirekt or an error 404.
 
 DATUM=$(date +%Y%m%d%H%M)
 DATADIR=$1
 TMPSOURCE=$(mktemp)
-T=$(echo `date +%j` | sed 's#^0*##')
-D=$(($T-48))
+T=$(echo `date +%j` | sed 's#^0*##')        # Day in year
+D=$(($T-48))                                # Reduce by offset 48
 SOURCE=https://datawrapper.dwcdn.net/YU9ZN/$D/
 
-wget -O "$TMPSOURCE" "$SOURCE" \
-if [ $? -eq 0 ] then
+wget -O "$TMPSOURCE" "$SOURCE"
+
+grep 'url=' "$TMPSOURCE"
+
+if [ $? -eq 1 ] 
+then
     echo -e "$( \
     cat "$TMPSOURCE" \
     | grep 'chartData: ' \
