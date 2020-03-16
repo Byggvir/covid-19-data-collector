@@ -18,5 +18,5 @@ cat  "${TMPSOURCE}" \
 | sed '/Gesamtzahl/d;$d' \
 > ${DATADIR}/hes-${DATUM}.csv
 
-awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < ${DATADIR}/hes-${DATUM}.csv >>${DATADIR}/hes-${DATUM}.csv
+awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$4} END {print ("Summe,-,-," sum) ;}' < ${DATADIR}/hes-${DATUM}.csv >>${DATADIR}/hes-${DATUM}.csv
 
