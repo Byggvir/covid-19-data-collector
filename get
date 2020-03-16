@@ -14,14 +14,14 @@ git pull
 
 for SCRIPT in bin/get_*
 do
-    . $SCRIPT $DATADIR
+    . $SCRIPT ${DATADIR}
 done
 
 popd
 
 # Keep only on copy of identical files
 
-pushd $DATADIR
+pushd ${DATADIR}
 
 git pull
 

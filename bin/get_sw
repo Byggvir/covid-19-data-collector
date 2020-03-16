@@ -8,23 +8,23 @@
 DATUM=$(date +%Y%m%d%H%M)
 DATADIR=$1
 TMPSOURCE=$(mktemp)
-T=$(echo `date +%j` | sed 's#^0*##')        # Day in year
-D=$(($T-47))                                # Reduce by offset 48
-SOURCE=https://datawrapper.dwcdn.net/YU9ZN/$D/
+SOURCE=https://datawrapper.dwcdn.net/YU9ZN/
+D=$(wget -O - "${SOURCE}"| sed 's#.*/YU9ZN/##; s#/.*##')
+SOURCE=${SOURCE}$D/
 
-wget -O "$TMPSOURCE" "$SOURCE"
+wget -O "${TMPSOURCE}" "${SOURCE}"
 
-grep 'url=' "$TMPSOURCE"
+grep 'url=' "${TMPSOURCE}"
 
 if [ $? -eq 1 ] 
 then
     echo -e "$( \
-    cat "$TMPSOURCE" \
+    cat "${TMPSOURCE}" \
     | grep 'chartData: ' \
     | sed 's#\\n#\n#g; s#\\"##g; 1 s#.*chartData: "#N#; ' \
     | sed '$d' \
     | sed 's#;#,#g' \
     )" \
-    > $DATADIR/sw-$DATUM.csv
+    > ${DATADIR}/sw-${DATUM}.csv
 fi
 

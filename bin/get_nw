@@ -7,11 +7,11 @@ DATADIR=$1
 TMPSOURCE=$(mktemp)
 SOURCE=https://www.mags.nrw/coronavirus-fallzahlen-nrw
 
-wget -O "$TMPSOURCE" "$SOURCE"
+wget -O "${TMPSOURCE}" "${SOURCE}"
 
 ( echo "Kreis,Fälle" ; \
-cat "$TMPSOURCE"  \
+cat "${TMPSOURCE}"  \
 | sed '1,/<th scope="col">Bestätigte Fälle<\/th>/d; /<\/tr><\/tbody><\/table>/,$d' \
 | sed 'N;s/\n/,/;s#<[^>]*>##g;' \
 | sed 's#,-#,0#; s#\&amp;#\&#g' \
-) > $DATADIR/nrw-$DATUM.csv
+) > ${DATADIR}/nrw-${DATUM}.csv

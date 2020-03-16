@@ -9,4 +9,4 @@ Scripts to collect COVID-19 data from various sites
 * * Kreise (byk)
 * * Regeirungsbezirke (byr)
 
-The data is saved in files unde$DATADIR/[rki|byk|byr|nrw]-\<datetime\>.csv
+The data is saved in files unde${DATADIR}/[rki|byk|byr|nrw]-\<datetime\>.csv

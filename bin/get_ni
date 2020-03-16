@@ -7,10 +7,10 @@ DATADIR=$1
 TMPSOURCE=$(mktemp)
 SOURCE=https://www.niedersachsen.de/Coronavirus
 
-wget -O "$TMPSOURCE" "$SOURCE"
+wget -O "${TMPSOURCE}" "${SOURCE}"
 
 ( echo "Kreis,Fälle" ; \
-cat "$TMPSOURCE" \
+cat "${TMPSOURCE}" \
 | sed '1,/<!-- Liste Infospalte -->/d; /<!-- Liste Infospalte -->/,$d' \
 | sed '1,/Landkreisen/d;/Hinweis/,$d' \
 | tr -d '\r' \
@@ -19,6 +19,6 @@ cat "$TMPSOURCE" \
 | sed 's#(+[0-9]*)##; s# *$##; $d' \
 | sed '/^$/d; $d' \
 | awk -F ',' '{print ($2 "," $1)}' ) \
-> $DATADIR/nie-$DATUM.csv
+> ${DATADIR}/nie-${DATUM}.csv
 
-awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < $DATADIR/nie-$DATUM.csv >>$DATADIR/nie-$DATUM.csv
+awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < ${DATADIR}/nie-${DATUM}.csv >>${DATADIR}/nie-${DATUM}.csv

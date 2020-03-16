@@ -7,16 +7,16 @@ DATADIR=$1
 TMPSOURCE=$(mktemp)
 SOURCE=https://soziales.hessen.de/gesundheit/infektionsschutz/coronavirus-sars-cov-2/taegliche-uebersicht-der-bestaetigten-sars-cov-2-faelle-hessen
 
-wget -O "$TMPSOURCE" "$SOURCE"
+wget -O "${TMPSOURCE}" "${SOURCE}"
 
-cat  "$TMPSOURCE" \
+cat  "${TMPSOURCE}" \
 | grep 'field-item ueberschrift">Tägliche Übersicht der bestätigten SARS-CoV-2-Fälle in Hessen' \
 | sed 's#</\{0,1\}p[^>]*>##g;s#</tbody>.*</table>.*Neue hessische Fälle.*##;' \
 | sed 's#.*<table [^>]*><tbody>##; s#</tr>#\n#g' \
 | sed 's#</td>#,#g;s#<[^>]*>##g; s#^ ##; ' \
 | sed 's#\xc2\xa0##g; s# *, *#,#g; s#,$##;' \
 | sed '/Gesamtzahl/d;$d' \
-> $DATADIR/hes-$DATUM.csv
+> ${DATADIR}/hes-${DATUM}.csv
 
-awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < $DATADIR/hes-$DATUM.csv >>$DATADIR/hes-$DATUM.csv
+awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < ${DATADIR}/hes-${DATUM}.csv >>${DATADIR}/hes-${DATUM}.csv
 
