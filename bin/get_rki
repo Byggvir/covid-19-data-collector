@@ -9,10 +9,9 @@ SOURCE=https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.h
 
 wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
 
-( echo "Bundesland,Bestätigt,Gemeldet,Schwerpunkt" ;  \
+( echo "Bundesland,Anzahl,Differenz zum Vortag,Erkr./100.000 Einw.,Todesfälle,Schwerpunkt" ;  \
 cat "${TMPSOURCE}" \
-| grep -A 2 '<table><colgroup>' \
-| sed '1,2d;s#^.*<tbody>##;s#<\/tr>#\n#g' \
-| sed 's#\(<[^>]*>\)\{1,\}#,#g; s#^,##; s#\.##g; s# ([0-9]*)##g' \
-| sed '/\(.*,\)\{4\}/ s#,$##' ) \
-> ${DATADIR}/rki-${DATUM}.csv
+| grep '^<table><colgroup>.*Elektronisch übermittelte Fälle' \
+| sed 's#.*<tbody>\(.*\)</tbody>.*#\1#; s#</tr>#\n#g;' \
+| sed 's#^<tr[^>]*><td[^>]*>##g; s#\.##g; s#,#\.#g; s#</td><td[^>]*>#,#g;s#</td>##;s#<[^>]*>##g' \
+) > ${DATADIR}/rki-${DATUM}.csv
