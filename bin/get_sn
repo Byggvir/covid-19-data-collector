@@ -9,12 +9,14 @@ SOURCE=https://www.sms.sachsen.de/coronavirus.html
 
 wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
 
-( echo 'Kreis,Fälle,Übermittelt' ; \
+( echo 'Kreis,Fälle,Vorabmeldungen' ; \
 cat ${TMPSOURCE} \
 | tr -d '\r' \
 | sed '1,/Laborbestätigte Fälle in den Kreisfreien Städten und in den Landkreisen des Freistaates/d; /<p>Todesfälle: 0<br>/,$d' \
 | sed '1,/<thead>/ d;/thead/d;/tbody/d;/table/d' \
 | tr -d '\n' \
 | sed 's#</tr>#\n#g; s#</t[dh]>[[:space:]]*<t[dh][^>]*>#,#g;' \
-| sed '1d; s#<[^>]*>##g; s#^[[:space:]]*##; s#&nbsp;#0#g' \
+| sed '1d; s#<[^>]*>##g; s#^[[:space:]]*##; s#&nbsp;#0#g;' \
+| sed 's#([[:space:]]*\([+-]\{0,1\}[0-9]*\))#,\1#g' \
+| sed '/^[^,]*,[^,]*$/ s#$#,#' \
 ) > ${DATADIR}/sn-${DATUM}.csv
