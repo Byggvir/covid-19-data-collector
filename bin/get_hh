@@ -10,11 +10,11 @@ KUERZEL="hh"
 
 wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
 
-( echo "Stadt,Anzahl" ; \
+( echo "Stadt,AGS,Anzahl" ; \
 cat  "${TMPSOURCE}" \
 | grep 'Coronavirus: Zahlen für Hamburg' \
-| sed 's#<svg.*##; s#.*<h2 class="c_chart_h2">\([0-9]*\)</h2>.*#Hamburg,\1#' \
+| sed 's#<svg.*##; s#.*<h2 class="c_chart_h2">\([0-9]*\)</h2>.*#Hamburg,02000000,\1#' \
 ) > ${DATADIR}/${KUERZEL}-${DATUM}.csv
 
-awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < ${DATADIR}/${KUERZEL}-${DATUM}.csv >>${DATADIR}/${KUERZEL}-${DATUM}.csv
+awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe,-," sum) ;}' < ${DATADIR}/${KUERZEL}-${DATUM}.csv >>${DATADIR}/${KUERZEL}-${DATUM}.csv
 
