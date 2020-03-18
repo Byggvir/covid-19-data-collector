@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# This bash script collects the data from Hansestadt Hamburg (HH), DEU
+
+DATUM=$(date +%Y%m%d%H%M)
+DATADIR=$1
+TMPSOURCE=$(mktemp)
+SOURCE=https://www.hamburg.de/coronavirus
+KUERZEL="hh"
+
+wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
+
+( echo "Stadt,Anzahl" ; \
+cat  "${TMPSOURCE}" \
+| grep 'Coronavirus: Zahlen für Hamburg' \
+| sed 's#<svg.*##; s#.*<h2 class="c_chart_h2">\([0-9]*\)</h2>.*#Hamburg,\1#' \
+) > ${DATADIR}/${KUERZEL}-${DATUM}.csv
+
+awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < ${DATADIR}/${KUERZEL}-${DATUM}.csv >>${DATADIR}/${KUERZEL}-${DATUM}.csv
+
