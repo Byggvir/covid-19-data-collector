@@ -7,33 +7,11 @@
 
 DATUM=$(date +%Y%m%d%H%M)
 DATADIR=$1
-TMPSOURCE=$(mktemp)
-SOURCE=https://datawrapper.dwcdn.net/YU9ZN/
-D=""
 
-FOUND=1
-while [ $FOUND -eq 1 ]
-do 
-    wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}$D"  || exit
-    grep 'url=../../YU9ZN/[0-9]*/' "${TMPSOURCE}" > /dev/null
-    if [ $? -eq 0 ]
-    then 
-      D=$(sed 's#.*/YU9ZN/##; s#/.*#/#' < "${TMPSOURCE}" )
-    else
-      FOUND=0
-    fi
-done
+# New source is already in CSV-format
 
-if [ $FOUND -eq 0 ] 
-then
-    echo -e "$( \
-    cat "${TMPSOURCE}" \
-    | grep 'chartData: ' \
-    | sed 's#,#\.#g;s#\\n#\n#g; s#\\"##g; 1 s#.*chartData: "#N#; ' \
-    | sed '$d' \
-    | sed 's#;#,#g' \
-    )" \
-    > ${DATADIR}/sw-${DATUM}.csv
-fi
+SOURCE=https://d.swr.de/coronavirus/corona.csv
+
+wget --tries=2 -O "${DATADIR}/sw-${DATUM}.csv" "${SOURCE}$D"  || exit
 
 awk -F ',' 'BEGIN {sum=0;bev=0;} NR>1 {sum+=$5;bev+=$7} END {print ("81,-,Summe,-," sum ",-," bev ",-,-,-,-,-") ;}' < ${DATADIR}/sw-${DATUM}.csv >>${DATADIR}/sw-${DATUM}.csv
