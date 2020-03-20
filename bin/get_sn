@@ -5,7 +5,7 @@
 DATUM=$(date +%Y%m%d%H%M)
 DATADIR=$1
 TMPSOURCE=$(mktemp)
-SOURCE=https://www.sms.sachsen.de/coronavirus.html
+SOURCE=https://www.coronavirus.sachsen.de/infektionsfaelle-in-sachsen-4151.html
 
 wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
 
