@@ -11,7 +11,7 @@ wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
 
 ( echo "Bundesland,Anzahl,Differenz zum Vortag,Erkr./100.000 Einw.,Todesfälle,Schwerpunkt" ;  \
 cat "${TMPSOURCE}" \
-| grep '^<table><colgroup>.*Elektronisch übermittelte Fälle' \
+| grep '^<table><colgroup>' \
 | sed 's#.*<tbody>\(.*\)</tbody>.*#\1#; s#</tr>#\n#g;' \
 | sed 's#^<tr[^>]*><td[^>]*>##g; s#\.##g; s#,#\.#g; s#</td><td[^>]*>#,#g;s#</td>##;s#<[^>]*>##g' \
 ) > ${DATADIR}/rki-${DATUM}.csv
