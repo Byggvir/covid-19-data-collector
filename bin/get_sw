@@ -12,6 +12,9 @@ DATADIR=$1
 
 SOURCE=https://d.swr.de/coronavirus/corona.csv
 
-wget --tries=2 -O "${DATADIR}/sw-${DATUM}.csv" "${SOURCE}$D"  || exit
+wget --tries=2 -O - "${SOURCE}$D" \
+| sed 's#"##g; s#,#\.#g; s#;#,#g' \
+> "${DATADIR}/sw-${DATUM}.csv"
 
-awk -F ',' 'BEGIN {sum=0;bev=0;} NR>1 {sum+=$5;bev+=$7} END {print ("81,-,Summe,-," sum ",-," bev ",-,-,-,-,-") ;}' < ${DATADIR}/sw-${DATUM}.csv >>${DATADIR}/sw-${DATUM}.csv
+awk -F ',' 'BEGIN {sum=0;bev=0;} NR>1 {if ($4==7) {sum+=$5;bev+=$7}} END {print ("81,-,Summe,-," sum ",-," bev ",-,-,-,-,-") ;}' < ${DATADIR}/sw-${DATUM}.csv >>${DATADIR}/sw-${DATUM}.csv
+awk -F ',' 'BEGIN {sum=0;bev=0;} NR>1 {if ($4==8) {sum+=$5;bev+=$7}} END {print ("82,-,Summe,-," sum ",-," bev ",-,-,-,-,-") ;}' < ${DATADIR}/sw-${DATUM}.csv >>${DATADIR}/sw-${DATUM}.csv
