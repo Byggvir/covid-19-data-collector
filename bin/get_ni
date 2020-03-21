@@ -3,22 +3,13 @@
 # This bash script collects the data from Niedersachsen (NIE), DEU
 
 DATUM=$(date +%Y%m%d%H%M)
-DATADIR=$1
+DATADIR=${1:-/tmp}
 TMPSOURCE=$(mktemp)
-SOURCE=https://www.niedersachsen.de/Coronavirus
+SOURCE=https://www.apps.nlga.niedersachsen.de/corona/download.php?csv-file
 
-wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
+wget --tries=2 -O ${DATADIR}/nie-${DATUM}.csv "${SOURCE}" 
 
-( echo "Kreis,Fälle" ; \
-cat "${TMPSOURCE}" \
-| sed '1,/<!-- Liste Infospalte -->/d; /<!-- Liste Infospalte -->/,$d' \
-| sed '1,/Landkreisen/d;/Hinweis/,$d' \
-| tr -d '\r' \
-| sed 's#<br>#\n#g; s#<[^>]*>##g;' \
-| sed 's#^[^0-9]## ;s# F.*ll.* i[nm] \(der \)*#,#; ' \
-| sed 's#(+[0-9]*)##; s# *$##; $d' \
-| sed '/^$/d; $d' \
-| awk -F ',' '{print ($2 "," $1)}' ) \
-> ${DATADIR}/nie-${DATUM}.csv
+sed -i 's#"##g; s#,#.#g; s#;#,#g;' \
+${DATADIR}/nie-${DATUM}.csv
 
-awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < ${DATADIR}/nie-${DATUM}.csv >>${DATADIR}/nie-${DATUM}.csv
+# awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < ${DATADIR}/nie-${DATUM}.csv >>${DATADIR}/nie-${DATUM}.csv
