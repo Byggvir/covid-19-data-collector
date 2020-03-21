@@ -7,9 +7,9 @@ DATADIR=${1:-/tmp}
 TMPSOURCE=$(mktemp)
 SOURCE=https://www.apps.nlga.niedersachsen.de/corona/download.php?csv-file
 
-wget --tries=2 -O ${DATADIR}/nie-${DATUM}.csv "${SOURCE}" 
+wget --tries=2 -O ${DATADIR}/ni-${DATUM}.csv "${SOURCE}" 
 
 sed -i 's#"##g; s#,#.#g; s#;#,#g;' \
-${DATADIR}/nie-${DATUM}.csv
+${DATADIR}/ni-${DATUM}.csv
 
-# awk -F ',' 'BEGIN {sum=0;} NR>1 {sum+=$2} END {print ("Summe," sum) ;}' < ${DATADIR}/nie-${DATUM}.csv >>${DATADIR}/nie-${DATUM}.csv
+awk -F ',' 'BEGIN {sum=0;diff=0} NR>1 {sum+=$4;diff+=$6} END {print ("-,-,Summe," sum ",-," diff) ;}' < ${DATADIR}/ni-${DATUM}.csv >>${DATADIR}/ni-${DATUM}.csv
