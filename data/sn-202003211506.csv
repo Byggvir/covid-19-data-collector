@@ -1,19 +1,15 @@
 Kreis,Fälle,Vorabmeldungen
-Landeshauptstadt Dresden,                          108                                              ,
-Stadt Chemnitz,42                      ,
-Stadt Leipzig,129                      ,
-Landkreis Bautzen,56 ,+9                      
-Erzgebirgskreis,                          33                                              ,
-Landkreis Görlitz,13 ,+2                      
-Landkreis Leipzig,32                      ,
-Landkreis Meißen,21                      ,
-Landkreis Mittelsachsen,24                      ,
-Landkreis Nordsachsen,9                      ,
-Landkreis Sächsische Schweiz-Osterzgebirge,41                      ,
-Vogtlandkreis,16                      ,
-Landkreis Zwickau,115                      ,
-Gesamtzahl der Infektionen,639 ,650                      
-Todesfälle: 1                  Klinisch schwerer Verlauf: 1                  0                  Stand: 21. März 2020, 12:00 Uhr                                                                              Service                                                HerausgeberHerausgeber                                                                                                            Sächsische Staatsregierung -                  01097 Dresden                                              Telefon:0,+49 351 564-0                      
-Telefax:0,+49 351 564-10999                      ,
-E-Mail:0,                          info@sachsen.de                                              ,
-ServiceService                                                                                            Übersicht                                                  Kontakt und Impressum                                                  Suche                                                  Datenschutz                                                                                                        Verwandte PortaleVerwandte Portale                                                                                            Regierung                                                  Medienservice                                                  Publikationen                                                                                                        Seite empfehlenSeite empfehlen                                                                                            facebook                                                  Twitter                                                  E-Mail                                                                                            $(window).on('load', function, {            // # CSS                        $.getCSS({               href: 'https://www.styleguide.sachsen.de/dist/css/vendor.css?v=2.21.0'            });                                    $.getCSS({               href: 'https://www.styleguide.sachsen.de/dist/themes/red/css/chrome.css?v=2.21.0',               'data-element': "theme-stylesheet"            }).then(function, {                // # JS                var dependencyScripts = [                    'https://www.styleguide.sachsen.de/dist/js/skriptHeadVendor.js?v=2.21.0',                    'https://www.styleguide.sachsen.de/dist/js/skriptBottomVendor.js?v=2.21.0'                ];                var scripts = [                    'https://www.styleguide.sachsen.de/dist/js/sachsen.js?v=2.21.0'                ];                $.ajaxSetup({                    cache: true                });                $.when.apply($, $.map(dependencyScripts, function(dependency) {                    return $.getScript(dependency);                })).then(function, {                    $.each(scripts, function(key, script) {                        $.getScript(script);                    });                                    });            });            $.getCSS({               href: 'https://www.styleguide.sachsen.de/dist/css/print.css?v=2.21.0',               media: 'print'            });        });       $(window).on('start', function , {  var $finanzamtkarte = $('#finanzamtkarte');  var $path = $('#finanzamtkarte path');  var $infobox = $('#info-box');  $finanzamtkarte.height($finanzamtkarte.width, / 1.35);  $path.hover(function (e) {  $infobox.css('display', 'block');  $infobox.html($(this).data('info'));  });  $path.mouseleave(function (e) {  $infobox.css('display', 'none');  });  $(window).on('breakpointChange resizeXS', xm.utils.events.debouncer(function , {  $finanzamtkarte.height($finanzamtkarte.width, / 1.35);  }));  $finanzamtkarte.mousemove(function (e) {  $infobox.css('top', (e.pageY - $finanzamtkarte.position,.top) - $infobox.height, - 30);  $infobox.css('left', (e.pageX - $finanzamtkarte.position,.left) - ($infobox.width,) / 2);  }).mouseover,;  });  
+Landeshauptstadt Dresden,108,
+Stadt Chemnitz,42,
+Stadt Leipzig,129,
+Landkreis Bautzen,56,+9
+Erzgebirgskreis,33,
+Landkreis Görlitz,13,+2
+Landkreis Leipzig,32,
+Landkreis Meißen,21,
+Landkreis Mittelsachsen,24,
+Landkreis Nordsachsen,9,
+Landkreis Sächsische Schweiz-Osterzgebirge,41,
+Vogtlandkreis,16,
+Landkreis Zwickau,115,
+Gesamtzahl der Infektionen,639,650
