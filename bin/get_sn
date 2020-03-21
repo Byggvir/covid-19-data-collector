@@ -3,7 +3,7 @@
 # This bash script collects the data from Sachsen (SN), DEU
 
 DATUM=$(date +%Y%m%d%H%M)
-DATADIR=$1
+DATADIR=${1:-/tmp}
 TMPSOURCE=$(mktemp)
 SOURCE=https://www.coronavirus.sachsen.de/infektionsfaelle-in-sachsen-4151.html
 
@@ -12,11 +12,13 @@ wget --tries=2 -O "${TMPSOURCE}" "${SOURCE}" || exit
 ( echo 'Kreis,Fälle,Vorabmeldungen' ; \
 cat ${TMPSOURCE} \
 | tr -d '\r' \
-| sed '1,/Laborbestätigte Fälle in den Kreisfreien Städten und in den Landkreisen des Freistaates/d; /<p>Todesfälle: 0<br>/,$d' \
-| sed '1,/<thead>/ d;/thead/d;/tbody/d;/table/d' \
+| sed '1,/<table style="margin-left:auto">/d;/<\/table>/,$d' \
+| sed '/thead/d;/tbody/d;' \
 | tr -d '\n' \
-| sed 's#</tr>#\n#g; s#</t[dh]>[[:space:]]*<t[dh][^>]*>#,#g;' \
-| sed '1d; s#<[^>]*>##g; s#^[[:space:]]*##; s#&nbsp;#0#g;' \
+| sed 's#[[:space:]]\{2,\}##g;' \
+| sed 's#</tr>#\n#g; s#</t[dh]><t[dh][^>]*>#,#g;' \
+| sed '1d; s#<[^>]*>##g; s#&nbsp;#0#g;' \
 | sed 's#([[:space:]]*\([+-]\{0,1\}[0-9]*\))#,\1#g' \
+| sed 's# ,#,#g;' \
 | sed '/^[^,]*,[^,]*$/ s#$#,#' \
 ) > ${DATADIR}/sn-${DATUM}.csv
