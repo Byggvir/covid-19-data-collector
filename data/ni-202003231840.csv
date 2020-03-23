@@ -1,0 +1,47 @@
+id,GKZ,Landkreis,bestätigte Fälle,Inzidenz (Fälle pro 100.000 Einwohner),Änderung zum Vortag
+451,03451,LK Ammerland,28,22.4,4
+452,03452,LK Aurich,26,13.7,3
+351,03351,LK Celle,31,17.3,0
+453,03453,LK Cloppenburg,10,5.8,2
+352,03352,LK Cuxhaven,35,17.6,11
+251,03251,LK Diepholz,68,31.3,6
+454,03454,LK Emsland,64,19.6,4
+455,03455,LK Friesland,6,6.1,1
+151,03151,LK Gifhorn,35,19.8,1
+153,03153,LK Goslar,22,16.1,1
+456,03456,LK Grafschaft Bentheim,29,21.2,0
+159,03159,LK Göttingen,64,19.5,7
+252,03252,LK Hameln-Pyrmont,26,17.5,0
+353,03353,LK Harburg,71,27.9,0
+358,03358,LK Heidekreis,6,4.3,2
+154,03154,LK Helmstedt,18,19.7,2
+254,03254,LK Hildesheim,100,36.2,5
+255,03255,LK Holzminden,29,41,2
+457,03457,LK Leer,13,7.6,1
+354,03354,LK Lüchow-Dannenberg,5,10.3,0
+355,03355,LK Lüneburg,59,32.1,0
+256,03256,LK Nienburg (Weser),17,14,2
+155,03155,LK Northeim,21,15.9,5
+458,03458,LK Oldenburg,16,12.2,0
+459,03459,LK Osnabrück,91,25.4,27
+356,03356,LK Osterholz,24,21,0
+157,03157,LK Peine,21,15.6,1
+357,03357,LK Rotenburg (Wümme),26,15.9,0
+257,03257,LK Schaumburg,29,18.4,0
+359,03359,LK Stade,64,31.3,18
+360,03360,LK Uelzen,11,11.9,4
+460,03460,LK Vechta,55,38.5,8
+361,03361,LK Verden,27,19.7,0
+461,03461,LK Wesermarsch,9,10.2,0
+462,03462,LK Wittmund,4,7,0
+158,03158,LK Wolfenbüttel,6,5,2
+241,03241,Region Hannover,346,29.9,5
+101,03101,SK Braunschweig,55,22.1,25
+401,03401,SK Delmenhorst,10,12.9,0
+402,03402,SK Emden,7,14,0
+403,03403,SK Oldenburg,40,23.7,11
+404,03404,SK Osnabrück,98,59.6,23
+102,03102,SK Salzgitter,25,24,1
+405,03405,SK Wilhelmshaven,5,6.6,0
+103,03103,SK Wolfsburg,27,21.7,9
+-,-,Summe,1779,-,193
